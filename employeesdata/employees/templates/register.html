@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{%block content %}
+<div class="container">
+	<form class="form-signin" action="" method="post">
+		{% csrf_token %}
+		<h2 class="form-signin-heading"> Employee Register</h2>
+
+		<div>
+			{{ form.as_p }}
+		</div>
+		<hr/>
+		<button class="btn btn-lg btn-primary btn-block"> Registrar</button>
+
+	</form>
+</div>
+{% endblock %}

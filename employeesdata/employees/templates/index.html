@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div id="main" class="container-fluid">
+        <div id="top" class="row">
+            <div class="col-md-3">
+                <h2>Admin panel to manage employees' data </h2>
+            </div>
+          <form method='post'>
+          {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="input-group h2">
+                    	{{form.as_p}}
+                        <span class="input-group-btn">
+                            <button type="submit" name="submit" value="Filter" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+         
+        </div>
+        <div class="container">
+             <div class="right"> 
+                <p style="text-align: right;"><a class="btn btn-success btn-lg" href="{% url 'register' %}" > Register New Employee</a></p>
+            </div>
+        </div>
+		{% if messages %}            
+		<div class="alert alert-success" role="alert">
+                <strong>Well done!</strong> You have successfully signed in! :) <a href="#" class="alert-link">Don't worry be happy</a> 
+        </div>
+          {% endif %}        
+         <hr />
+        <div id="list" class="row">
+         
+            <div class="table-responsive col-md-12">
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                        	<th>Employee's id </th>
+                            <th>Employee's name</th>
+                            <th>Employee's email</th>
+                            <th>Employee's departament</th>
+                            <th class="actions">Ações</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+						{% if employees%}
+						{% for employee in employees %}
+						<tr>
+							<td>{{employee.id}}</td>
+							<td>{{employee.name}}</td>
+                    		<td>{{employee.email}}</td>
+                    		<td>{{employee.departament}}</td>
+                    		<td class="actions">
+                                    <a class="btn btn-info btn-xs showSendPush" href="/register/?id={{employee.id}}"> Change </a>
+                                    <a class="btn btn-danger btn-xs"  href="{% url 'remove' employee.id %}"> Delete </a>
+                                </td>
+						</tr>
+						{% endfor %}
+						{% else %}
+							<p>Nenhum perfil encontrado</p>
+						{% endif %}
+                    </tbody>
+                 </table>
+         
+             </div>
+         </div> <!-- /#list -->
+     
+        <div id="bottom" class="row">
+            <div class="col-md-12">     
+            </div>
+        </div> <!-- /#bottom -->
+     </div>  <!-- /#main -->
+{% endblock %}
